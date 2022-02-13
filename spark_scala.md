@@ -56,7 +56,50 @@ val trainingData =
       )
 ```
 
+create case class
+
 ```scala
-case class userCatalog(userId: String, catalogs: Array[Catalog])
+case class HyperParametersALS(
+  rank: Int,
+  numIterations: Int,
+  alpha: Double,
+  lambda: Double,
+  setImplicitPrefs: Boolean,
+  setNonNegative: Boolean,
+  NumItemBlocks: Int,
+  NumUserBlocks: Int
+)
+
+val hp = HyperParametersALS(
+      appConfig.getInt("rank"),
+      appConfig.getInt("numIterations"),
+      appConfig.getDouble("alpha"),
+      appConfig.getDouble("lambda"),
+      appConfig.getBoolean("setImplicitPrefs"),
+      appConfig.getBoolean("setNonNegative"),
+      appConfig.getInt("NumItemBlocks"),
+      appConfig.getInt("NumUserBlocks")
+    )
+```
+
+Usage of 
+* Equal operator
+* filter command
+* drop duplicates
+* selectExpr
+*
+```scala
+val primary_users =
+      user_data
+      .filter($"mod" === num.toInt)
+      .select("user_id")
+
+ val users =
+      primary_users
+      .filter("user_id is not null")
+      
+val originalUserId =
+      users.selectExpr("user_id as original_user_id")
+      .dropDuplicates("original_user_id")
 ```
 
