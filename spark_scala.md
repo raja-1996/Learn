@@ -103,3 +103,16 @@ val originalUserId =
       .dropDuplicates("original_user_id")
 ```
 
+zipwithindex example
+
+```scala
+val userIdMap = originalUserId
+    .rdd
+    .zipWithIndex()
+    .map(t => (t._1.get(0).toString, t._2))
+    .toDF("original_user_id", "index")
+    .withColumn("temp_user_id", expr("cast(index as int)"))
+    .drop("index")
+    .repartition(400)
+```
+
