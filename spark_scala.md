@@ -87,14 +87,16 @@ Usage of
 * filter command
 * drop duplicates
 * selectExpr
-*
+
 ```scala
 val primary_users =
       user_data
       .filter($"mod" === num.toInt)
       .select("user_id")
 
- val users =
+val filtered_df = df.filter("userId is not null and catalogId is not null")
+
+val users =
       primary_users
       .filter("user_id is not null")
       
