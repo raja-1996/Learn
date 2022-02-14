@@ -130,3 +130,14 @@ df.selectExpr(
       "cast(wishlist as Int) as wishlist"
     )
 ```
+
+
+```scala
+views
+    .join(orders, Seq("user_id", "catalog_id"), "full")
+    .join(clicks, Seq("user_id", "catalog_id"), "full")
+    .join(shares, Seq("user_id", "catalog_id"), "full")
+    .join(wishlist, Seq("user_id", "catalog_id"), "full")
+    .na
+    .fill(0, Seq("orders", "shares", "wishlist", "clicks", "views"))
+```
