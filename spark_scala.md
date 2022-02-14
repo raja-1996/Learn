@@ -116,3 +116,15 @@ val userIdMap = originalUserId
     .repartition(400)
 ```
 
+cast
+```scala
+df.selectExpr(
+      "user_id as userId",
+      "cast(catalog_id as Int) as catalogId",
+      "cast(orders as Int) as orders",
+      "cast(shares as Int) as shares",
+      "cast(views as float) as views",
+      "cast(clicks as Int) as clicks",
+      "cast(wishlist as Int) as wishlist"
+    )
+```
