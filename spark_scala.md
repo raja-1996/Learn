@@ -141,3 +141,14 @@ views
     .na
     .fill(0, Seq("orders", "shares", "wishlist", "clicks", "views"))
 ```
+
+Min-Max Normalization
+```pyspark
+w = Window.partitionBy('group')
+for c in cols_to_normalize:
+    df = (df.withColumn('mini', F.min(c).over(w))
+        .withColumn('maxi', F.max(c).over(w))
+        .withColumn(c, ((F.col(c) - F.col('mini')) / (F.col('maxi') - F.col('mini'))))
+        .drop('mini')
+        .drop('maxi'))
+```
