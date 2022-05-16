@@ -1,0 +1,15 @@
+
+# save json_to_s3
+import json
+import boto3
+s3 = boto3.client('s3')
+def save_json_to_s3(bucket_name, s3_path, json_data):
+    
+    s3.put_object(
+         Body=json.dumps(json_data),
+         Bucket=bucket_name,
+         Key=s3_path
+    )
+    
+save_json_to_s3("data-science-meesho-dev", "raja/Graph/data/graph_mappings/catalog_to_index.json", catalog_to_index)
+save_json_to_s3("data-science-meesho-dev", "raja/Graph/data/graph_mappings/index_to_catalog.json", index_to_catalog):
